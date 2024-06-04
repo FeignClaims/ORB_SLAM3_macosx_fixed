@@ -1,6 +1,6 @@
-# ORB-SLAM3
+# ORB-SLAM3 with vcpkg
 
-This is a clone of [the original ORB-SLAM3 repo](https://github.com/UZ-SLAMLab/ORB_SLAM3) intended at making it compile and run on Mac OSX (used in my homework).
+This is a clone of [the original ORB-SLAM3 repo](https://github.com/UZ-SLAMLab/ORB_SLAM3) intended at using vcpkg to manage dependencies and making it compile and run on Mac OSX (used in my homework).
 
 The major changes are in `CMakeLists.txt` and `build.sh`, however several code changes were introduced throughout to support compilation with Clang++.
 
@@ -37,6 +37,8 @@ CMake Warning at ports/python3/portfile.cmake:7 (message):
 
       brew install autoconf automake autoconf-archive
 ```
+
+:warning: On Mac OSX, this repository compiles only when I use apple-clang instead of homebrew clang.
 
 Good luck to you weary traveler. Beware, there are dragons in those hills up ahead.
 
