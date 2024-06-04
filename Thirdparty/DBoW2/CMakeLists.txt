@@ -1,48 +1,31 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.25)
 project(DBoW2)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -march=native ")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall  -O3 -march=native")
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-set(HDRS_DBOW2
-  DBoW2/BowVector.h
-  DBoW2/FORB.h
-  DBoW2/FClass.h
-  DBoW2/FeatureVector.h
-  DBoW2/ScoringObject.h
-  DBoW2/TemplatedVocabulary.h)
-set(SRCS_DBOW2
+add_library(DBoW2 SHARED)
+target_include_directories(DBoW2
+  PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}
+)
+target_sources(DBoW2
+  PRIVATE
   DBoW2/BowVector.cpp
   DBoW2/FORB.cpp
   DBoW2/FeatureVector.cpp
-  DBoW2/ScoringObject.cpp)
-
-set(HDRS_DUTILS
-  DUtils/Random.h
-  DUtils/Timestamp.h)
-set(SRCS_DUTILS
+  DBoW2/ScoringObject.cpp
   DUtils/Random.cpp
-  DUtils/Timestamp.cpp)
+  DUtils/Timestamp.cpp
+)
 
-
-find_package(OpenCV 4 QUIET)
-if(NOT OpenCV_FOUND)
-   find_package(OpenCV 3.0 QUIET)
-   if(NOT OpenCV_FOUND)
-      message(FATAL_ERROR "OpenCV > 3.0 not found.")
-   endif()
-endif()
-
-find_package( Boost REQUIRED COMPONENTS serialization )
-include_directories( ${Boost_INCLUDE_DIRS} )
-
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-
-include_directories(${OpenCV_INCLUDE_DIRS})
-add_library(DBoW2 SHARED ${SRCS_DBOW2} ${SRCS_DUTILS})
-target_link_libraries(DBoW2 ${OpenCV_LIBS})
-
+find_package(OpenCV QUIET REQUIRED)
+find_package(Boost REQUIRED COMPONENTS serialization)
+target_link_libraries(DBoW2
+  PUBLIC
+  ${OpenCV_LIBS}
+  Boost::serialization
+)

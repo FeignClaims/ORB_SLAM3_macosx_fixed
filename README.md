@@ -1,20 +1,48 @@
 # ORB-SLAM3
 
-This is a clone of the original ORB-SLAM3 repo (https://github.com/UZ-SLAMLab/ORB_SLAM3) intended at making it compile and run
-on Mac OSX.
+This is a clone of [the original ORB-SLAM3 repo](https://github.com/UZ-SLAMLab/ORB_SLAM3) intended at making it compile and run on Mac OSX (used in my homework).
 
-The mnajor changes are in `CMakeLists.txt` and `build.sh`, howeve several code changes were introduced throughout to support
-compilation with Clang++.
+The major changes are in `CMakeLists.txt` and `build.sh`, however several code changes were introduced throughout to support compilation with Clang++.
 
-The build process is roughly similar to the below (run `build.sh`, say a prayer, light a candle, put your hands together at your
-heart and cross your fingers), however several dependencies are needed from Homwbrew, e.g.
-```
-$ brew install opencv openssl@1.1 boost eigen
+One of the main issues on MacOS was Pangolin needing to run on the main thread. Currently only the `Examples/Stereo/stereo_euroc.cc` executable has been modified to shift the computation onto its own thread, and keep Pangolin on the main thread. If you need this for other executables, it should be pretty straightforward following what I've done in `Examples/Stereo/stereo_euroc.cc`.
+
+The build process is overhauled to use cmake directly, so you can either run cmake directly or run it almost like before (run `build.sh`, say a prayer, light a candle, put your hands together at your heart and cross your fingers).
+
+Dependencies are managed by vcpkg which will be downloaded, installed and run automatically during the cmake configuration, but some system packages are required, please follow the instruction when the cmake failed.
+
+```bash
+CMake Warning at ports/python3/portfile.cmake:7 (message):
+  python3 currently requires the following programs from the system package
+  manager:
+
+      autoconf automake autoconf-archive
+
+  On Debian and Ubuntu derivatives:
+
+      sudo apt-get install autoconf automake autoconf-archive
+
+  On recent Red Hat and Fedora derivatives:
+
+      sudo dnf install autoconf automake autoconf-archive
+
+  On Arch Linux and derivatives:
+
+      sudo pacman -S autoconf automake autoconf-archive
+
+  On Alpine:
+
+      apk add autoconf automake autoconf-archive
+
+  On macOS:
+
+      brew install autoconf automake autoconf-archive
 ```
 
 Good luck to you weary traveler. Beware, there are dragons in those hills up ahead.
 
 ![Running on OSX](osx_run.gif)
+
+---
 
 ### V1.0, December 22th, 2021
 **Authors:** Carlos Campos, Richard Elvira, Juan J. Gómez Rodríguez, [José M. M. Montiel](http://webdiis.unizar.es/~josemari/), [Juan D. Tardos](http://webdiis.unizar.es/~jdtardos/).
