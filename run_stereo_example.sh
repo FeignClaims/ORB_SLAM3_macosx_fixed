@@ -3,8 +3,8 @@ pathDatasetEuroc='/Users/feignclaims/Downloads' #Example, it is necesary to chan
 
 
 #------------------------------------
-# Stereo-Inertial Examples
-echo "Launching MH01 with Stereo-Inertial sensor"
+# Stereo Examples
+echo "Launching MH01 with Stereo sensor"
 ./Examples/Stereo/stereo_euroc \
   ./Vocabulary/ORBvoc.txt \
   ./Examples/Stereo/EuRoC.yaml \
