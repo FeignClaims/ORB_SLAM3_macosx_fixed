@@ -8,6 +8,8 @@ One of the main issues on MacOS was Pangolin needing to run on the main thread. 
 
 The build process is overhauled to use cmake directly, so you can either run cmake directly or run it almost like before (run `build.sh`, say a prayer, light a candle, put your hands together at your heart and cross your fingers).
 
+:warning: Although being overhauled, this project is still not modern-cmake enough. This is just for a small assignment, and I'm not interested enough in this field, so I won't maintain the project. If you are interested in modern cmake solutions for managing c++ code, please check [FeignClaims/cpp_conan_template](https://github.com/FeignClaims/cpp_conan_template) and [aminya/project_options](https://github.com/aminya/project_options) instead.
+
 Dependencies are managed by vcpkg which will be downloaded, installed and run automatically during the cmake configuration, but some system packages are required, please follow the instruction when the cmake failed.
 
 ```bash
